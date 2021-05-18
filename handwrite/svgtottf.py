@@ -35,7 +35,7 @@ class SVGtoTTF:
         #         outdir,
         #     ]
         # )
-        self.convert_main(os.path.abspath(__file__),config,directory,outdir)
+        self.convert_main(config,directory,outdir)
 
     def set_properties(self):
         """Set metadata of the font from config."""
