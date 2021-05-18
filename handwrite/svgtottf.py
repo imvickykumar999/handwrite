@@ -1,7 +1,7 @@
 import sys
 import os
 import json
-
+import fontforge
 
 class SVGtoTTF:
     def convert(self, directory, outdir, config):
@@ -19,22 +19,23 @@ class SVGtoTTF:
         config : str
             Path to config file.
         """
-        import subprocess
-        import platform
+        # import subprocess
+        # import platform
 
-        subprocess.run(
-            (
-                ["ffpython"]
-                if platform.system() == "Windows"
-                else ["fontforge", "-script"]
-            )
-            + [
-                os.path.abspath(__file__),
-                config,
-                directory,
-                outdir,
-            ]
-        )
+        # subprocess.run(
+        #     (
+        #         ["ffpython"]
+        #         if platform.system() == "Windows"
+        #         else ["fontforge", "-script"]
+        #     )
+        #     + [
+        #         os.path.abspath(__file__),
+        #         config,
+        #         directory,
+        #         outdir,
+        #     ]
+        # )
+        self.convert_main(os.path.abspath(__file__),config,directory,outdir)
 
     def set_properties(self):
         """Set metadata of the font from config."""
@@ -172,11 +173,6 @@ class SVGtoTTF:
         self.font.generate(outfile)
 
     def convert_main(self, config_file, directory, outdir):
-        try:
-            self.font = fontforge.font()
-        except:
-            import fontforge
-
         with open(config_file) as f:
             self.config = json.load(f)
 
@@ -197,7 +193,7 @@ class SVGtoTTF:
         )
 
 
-if __name__ == "__main__":
-    if len(sys.argv) != 4:
-        raise ValueError("Incorrect call to SVGtoTTF")
-    SVGtoTTF().convert_main(sys.argv[1], sys.argv[2], sys.argv[3])
+# if __name__ == "__main__":
+#     if len(sys.argv) != 4:
+#         raise ValueError("Incorrect call to SVGtoTTF")
+    # SVGtoTTF().convert_main(sys.argv[1], sys.argv[2], sys.argv[3])
